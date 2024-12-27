@@ -77,14 +77,14 @@ _encode_number = |param, num| (
     loop(
         s.get_size - 1, |i|
         if i < 1 {
-            break $ s.substring(0, i + 1)
+            break $ s.get_sub(0, i + 1)
         };
         if a.@(i) != '0' {
             if a.@(i) == '.' {
                 // Trim the trailing decimal point.
-                break $ s.substring(0, i)
+                break $ s.get_sub(0, i)
             } else {
-                break $ s.substring(0, i + 1)
+                break $ s.get_sub(0, i + 1)
             }
         };
         continue $ i - 1
