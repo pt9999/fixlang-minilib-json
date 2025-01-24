@@ -65,6 +65,6 @@ to UTF32 and join the surrogate pair, then convert it to UTF8.
 
 ### `_ws : Minilib.Text.SimpleParser::Parser ()`
 
-### `decode : Std::String -> Std::Result Std::String Minilib.Encoding.Json::Json`
+### `decode : Std::String -> Std::Result Std::ErrMsg Minilib.Encoding.Json::Json`
 
 Parses JSON text and returns a JSON value.
