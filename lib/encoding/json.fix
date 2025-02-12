@@ -25,7 +25,7 @@ to_object: Array (String, Json) -> Json;
 to_object = |arr| (
     let map = arr.to_iter.fold(
         OrderedMap::empty(arr.get_size),
-        |h, (k, v)| h.insert(k, v)
+        |(k, v), h| h.insert(k, v)
     );
     object $ map
 );

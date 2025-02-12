@@ -116,7 +116,7 @@ _parse_object = (
     let to_ordered_map: Array (String, Json) -> OrderedMap String Json =
         |kvs| kvs.to_iter.fold(
             OrderedMap::empty(100),
-            |h, (k, v)| h.insert(k, v)
+            |(k, v), h| h.insert(k, v)
         );
     let body : Parser (OrderedMap String Json) = do {
         let first = *(member);
