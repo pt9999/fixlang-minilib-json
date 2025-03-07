@@ -1,41 +1,59 @@
-# `module Minilib.Encoding.Json`
+# Minilib.Encoding.Json
+
+Defined in minilib-json@0.5.1
 
 Definition of the structure of a JSON value.
 
-# Types and aliases
+## Values
 
-## `namespace Minilib.Encoding.Json`
+### namespace Minilib.Encoding.Json
 
-### `type Json = box union { ...variants... }`
+#### to_object
+
+Type: `Std::Array (Std::String, Minilib.Encoding.Json::Json) -> Minilib.Encoding.Json::Json`
+
+Converts an array of keys and values to a JSON object.
+
+## Types and aliases
+
+### namespace Minilib.Encoding.Json
+
+#### Json
+
+Defined as: `type Json = box union { ...variants... }`
 
 A structure representing a JSON value.
 
-#### variant `null : ()`
+##### variant `null`
 
-#### variant `bool : Std::Bool`
+Type: `()`
 
-#### variant `number : Std::F64`
+##### variant `bool`
 
-#### variant `string : Std::String`
+Type: `Std::Bool`
 
-#### variant `object : Minilib.Collection.OrderedMap::OrderedMap Std::String Minilib.Encoding.Json::Json`
+##### variant `number`
 
-#### variant `array : Std::Array Minilib.Encoding.Json::Json`
+Type: `Std::F64`
 
-# Traits and aliases
+##### variant `string`
 
-# Trait implementations
+Type: `Std::String`
 
-### `impl Minilib.Encoding.Json::Json : Std::Eq`
+##### variant `object`
+
+Type: `Minilib.Collection.OrderedMap::OrderedMap Std::String Minilib.Encoding.Json::Json`
+
+##### variant `array`
+
+Type: `Std::Array Minilib.Encoding.Json::Json`
+
+## Traits and aliases
+
+## Trait implementations
+
+### impl `Minilib.Encoding.Json::Json : Std::Eq`
 
 Checks whether two JSON values are equal.
 
-### `impl Minilib.Encoding.Json::Json : Std::ToString`
-
-# Values
-
-## `namespace Minilib.Encoding.Json`
-
-### `to_object : Std::Array (Std::String, Minilib.Encoding.Json::Json) -> Minilib.Encoding.Json::Json`
-
-Converts an array of keys and values to a JSON object.
+### impl `Minilib.Encoding.Json::Json : Std::ToString`

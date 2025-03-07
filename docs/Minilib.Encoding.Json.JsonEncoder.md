@@ -1,61 +1,101 @@
-# `module Minilib.Encoding.Json.JsonEncoder`
+# Minilib.Encoding.Json.JsonEncoder
+
+Defined in minilib-json@0.5.1
 
 Encodes a JSON value to a string.
 
-# Types and aliases
+## Values
 
-## `namespace Minilib.Encoding.Json.JsonEncoder`
+### namespace Minilib.Encoding.Json.JsonEncoder
 
-### `type EncodeParam = unbox struct { ...fields... }`
+#### _encode
 
-#### field `space : Std::String`
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Encoding.Json::Json -> Std::Array Std::String`
 
-#### field `newline : Std::String`
+#### _encode_array
 
-#### field `indent : Std::String`
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Std::Array Minilib.Encoding.Json::Json -> Std::Array Std::String`
 
-#### field `indent_incr : Std::String`
+#### _encode_number
 
-#### field `number_prec : Std::U8`
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::F64 -> Std::String`
 
-# Traits and aliases
+#### _encode_object
 
-# Trait implementations
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Collection.OrderedMap::OrderedMap Std::String Minilib.Encoding.Json::Json -> Std::Array Std::String`
 
-# Values
+#### _encode_string
 
-## `namespace Minilib.Encoding.Json.JsonEncoder`
+Type: `Std::String -> Std::String`
 
-### `_encode : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Encoding.Json::Json -> Std::Array Std::String`
+#### _escape_table
 
-### `_encode_array : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Std::Array Minilib.Encoding.Json::Json -> Std::Array Std::String`
+Type: `Std::Array Std::U8`
 
-### `_encode_number : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::F64 -> Std::String`
+#### _hex_table
 
-### `_encode_object : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Collection.OrderedMap::OrderedMap Std::String Minilib.Encoding.Json::Json -> Std::Array Std::String`
+Type: `Std::Array Std::U8`
 
-### `_encode_string : Std::String -> Std::String`
+#### encode
 
-### `_escape_table : Std::Array Std::U8`
-
-### `_hex_table : Std::Array Std::U8`
-
-### `encode : Minilib.Encoding.Json::Json -> Std::String`
+Type: `Minilib.Encoding.Json::Json -> Std::String`
 
 Encodes JSON and converts it to a string.
 
-### `encode_pretty : Minilib.Encoding.Json::Json -> Std::String`
+#### encode_pretty
+
+Type: `Minilib.Encoding.Json::Json -> Std::String`
 
 Encodes JSON and converts it to a string. (pretty-printing)
 
-### `encode_with_param : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Minilib.Encoding.Json::Json -> Std::String`
+#### encode_with_param
+
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Minilib.Encoding.Json::Json -> Std::String`
 
 Encodes JSON and converts it to a string using the specified parameter.
 
-## `namespace Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+### namespace Minilib.Encoding.Json.JsonEncoder::EncodeParam
 
-### `default : Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+#### default
 
-### `increment_indent : Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam`
 
-### `pretty_print : Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+#### increment_indent
+
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+
+#### pretty_print
+
+Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam`
+
+## Types and aliases
+
+### namespace Minilib.Encoding.Json.JsonEncoder
+
+#### EncodeParam
+
+Defined as: `type EncodeParam = unbox struct { ...fields... }`
+
+##### field `space`
+
+Type: `Std::String`
+
+##### field `newline`
+
+Type: `Std::String`
+
+##### field `indent`
+
+Type: `Std::String`
+
+##### field `indent_incr`
+
+Type: `Std::String`
+
+##### field `number_prec`
+
+Type: `Std::U8`
+
+## Traits and aliases
+
+## Trait implementations
