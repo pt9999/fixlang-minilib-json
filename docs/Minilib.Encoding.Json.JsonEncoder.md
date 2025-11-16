@@ -1,40 +1,12 @@
 # Minilib.Encoding.Json.JsonEncoder
 
-Defined in minilib-json@0.5.1
+Defined in minilib-json@0.5.2
 
 Encodes a JSON value to a string.
 
 ## Values
 
 ### namespace Minilib.Encoding.Json.JsonEncoder
-
-#### _encode
-
-Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Encoding.Json::Json -> Std::Array Std::String`
-
-#### _encode_array
-
-Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Std::Array Minilib.Encoding.Json::Json -> Std::Array Std::String`
-
-#### _encode_number
-
-Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::F64 -> Std::String`
-
-#### _encode_object
-
-Type: `Minilib.Encoding.Json.JsonEncoder::EncodeParam -> Std::Array Std::String -> Minilib.Collection.OrderedMap::OrderedMap Std::String Minilib.Encoding.Json::Json -> Std::Array Std::String`
-
-#### _encode_string
-
-Type: `Std::String -> Std::String`
-
-#### _escape_table
-
-Type: `Std::Array Std::U8`
-
-#### _hex_table
-
-Type: `Std::Array Std::U8`
 
 #### encode
 
