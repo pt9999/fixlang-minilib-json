@@ -12,7 +12,7 @@ test_eq_ok: (Json, Json, Bool) -> TestCase;
 test_eq_ok = |(j1, j2, b)| (
     let testname = "test_eq (" + j1.to_string + "," + j2.to_string + "," + b.to_string + ")";
     make_test(testname) $ |_|
-    let _ = *(assert_equal("eq", j1 == j2, b));
+    assert_equal("eq", j1 == j2, b);;
     pure()
 );
 
@@ -37,8 +37,8 @@ test_encode_ok = |(json, expected)| (
     let testname = "test_encode_ok ("+expected+")";
     make_test(testname) $ |_|
     let actual = json.encode;
-    //let _ = *(lift $ println (actual));
-    let _ = *(assert_equal("encode", expected, actual));
+    //lift $ println (actual);;
+    assert_equal("encode", expected, actual);;
     pure()
 );
 
@@ -65,12 +65,12 @@ test_encode = (
 test_parser: TestCase;
 test_parser = (
     make_test("test_parser") $ |_|
-    let _ = *(assert_true("null", _parse_null.run_parser_str("null012").is_ok));
-    let _ = *(assert_true("true", let res = _parse_bool.run_parser_str("true012");
-            res.is_ok && let (b, s) = res.as_ok; b == true));
-    let _ = *(assert_true("false", let res = _parse_bool.run_parser_str("false012");
-            res.is_ok && let (b, s) = res.as_ok; b == false));
-    let _ = *(assert_true("nonbool", _parse_bool.run_parser_str("null012").is_err));
+    assert_true("null", _parse_null.run_parser_str("null012").is_ok);;
+    let res = _parse_bool.run_parser_str("true012");
+    assert_true("true", res.is_ok && let (b, s) = res.as_ok; b == true);;
+    let res = _parse_bool.run_parser_str("false012");
+    assert_true("false", res.is_ok && let (b, s) = res.as_ok; b == false);;
+    assert_true("nonbool", _parse_bool.run_parser_str("null012").is_err);;
     pure()
 );
 
@@ -79,7 +79,7 @@ test_parse_string_ok = |(text, expected)| (
     let testname = "test_parse_string(" + text + "," + expected + ")";
     make_test(testname) $ |_|
     let (actual, next) = *(from_result $ _parse_string.run_parser_str(text));
-    let _ = *(assert_equal("eq", expected, actual));
+    assert_equal("eq", expected, actual);;
     pure()
 );
 
@@ -106,7 +106,7 @@ test_decode_ok = |(text, expected)| (
     let testname = "test_decode_ok(" + text + "," + expected.to_string + ")";
     make_test(testname) $ |_|
     let actual = *(from_result $ decode(text));
-    let _ = *(assert_equal("eq", expected, actual));
+    assert_equal("eq", expected, actual);;
     pure()
 );
 
@@ -115,10 +115,10 @@ test_decode_ng = |(text, expected_err)| (
     let testname = "test_decode_bg(" + text + "," + expected_err.to_string + ")";
     make_test(testname) $ |_|
     let res = decode(text);
-    let _ = *(assert_true("the result is not an error", res.is_err));
+    assert_true("the result is not an error", res.is_err);;
     let actual_err: ErrMsg = res.as_err;
-    let _ = *(assert_true("does not contain expected error message: " + actual_err,
-        actual_err.find(expected_err, 0).is_some));
+    assert_true("does not contain expected error message: " + actual_err,
+                actual_err.find(expected_err, 0).is_some);;
     pure()
 );
 

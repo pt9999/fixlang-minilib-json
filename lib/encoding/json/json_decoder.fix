@@ -34,7 +34,7 @@ decode = |str| (
 _json_text: Parser Json;
 _json_text = do {
     let json = *(_wrap_whitespaces(_parse_value));
-    let _ = *match_end_of_stream;
+    match_end_of_stream;;
     pure $ json
 };
 
@@ -61,9 +61,9 @@ _ws = match_str_class_whitespace.map(|str| ());
 
 _wrap_whitespaces: Parser a -> Parser a;
 _wrap_whitespaces = |p| do {
-    let _ = *_ws;
+    _ws;;
     let value = *p;
-    let _ = *_ws;
+    _ws;;
     pure $ value
 };
 
@@ -104,13 +104,13 @@ _parse_object = (
     let member : Parser (String, Json) = do {
 
         let k = *_parse_string;
-        let _ = *(_name_separator.or_error("Missing ':'"));
+        _name_separator.or_error("Missing ':'");;
         let v = *_parse_value;
         pure $ (k, v)
     };
 
     let sep_member : Parser (String, Json) = do {
-        let _ = *_value_separator;
+        _value_separator;;
         member
     };
     let to_ordered_map: Array (String, Json) -> OrderedMap String Json =
@@ -131,9 +131,9 @@ _parse_object = (
     let end_object = _end_object.or_error("Missing '}'");
 
     do {
-        let _ = *begin_object;
+        begin_object;;
         let hashmap = *body;
-        let _ = *end_object;
+        end_object;;
         pure $ hashmap
     }
 );
@@ -145,7 +145,7 @@ _parse_object = (
 _parse_array: Parser (Array Json);
 _parse_array = (
     let sep_value : Parser Json = do {
-        let _ = *_value_separator;
+        _value_separator;;
         _parse_value
     };
     let body : Parser (Array Json) = do {
@@ -156,9 +156,9 @@ _parse_array = (
     let body = body.or_else(unit.map(|_| Array::empty(0)));
 
     do {
-        let _ = *_begin_array;
+        _begin_array;;
         let values = *body;
-        let _ = *(_end_array.or_error("Missing ']'"));
+        _end_array.or_error("Missing ']'");;
         pure $ values
     }
 );
@@ -178,33 +178,33 @@ _parse_number = (
     let match_zero = match_str("0");
     let match_int = match_zero.or_else(
         do {
-            let _ = *match_digit1_9;
-            let _ = *(repeat(match_digit));
+            match_digit1_9;;
+            repeat(match_digit);;
             pure $ ()
         }
     );
     let match_exp = do {
-        let _ = *match_e;
-        let _ = *(match_minus.or_else(match_plus).or_else(unit));
-        let _ = *(one_or_more(match_digit));
+        match_e;;
+        match_minus.or_else(match_plus).or_else(unit);;
+        one_or_more(match_digit);;
         pure $ ()
     };
     let match_frac = do {
-        let _ = *match_decimal_point;
-        let _ = *(repeat(match_digit));
+        match_decimal_point;;
+        repeat(match_digit);;
         pure $ ()
     };
     let match_number = do {
-        let _ = *(match_minus.or_else(unit));
-        let _ = *(match_int);
-        let _ = *(match_frac.or_else(unit));
-        let _ = *(match_exp.or_else(unit));
+        match_minus.or_else(unit);;
+        match_int;;
+        match_frac.or_else(unit);;
+        match_exp.or_else(unit);;
         pure $ ()
     };
 
     do {
         let stream_begin = *get_stream;
-        let _ = *match_number;
+        match_number;;
         let stream_end = *get_stream;
         let byte_count = stream_end.@position - stream_begin.@position;
         if byte_count < 0 { undefined("number byte count is negative") };
@@ -263,7 +263,7 @@ _match_quoted_char_u16 = (
     );
     let match_hex: Parser U8 = match_any_char.filter(is_xdigit).map_result(decode_hex_char);
     let match_u_hex4: Parser U16 = do {
-        let _ = *(match_char('u'));
+        match_char('u');;
         let a = (*match_hex).to_U16.shift_left(12_U16);
         let b = (*match_hex).to_U16.shift_left(8_U16);
         let c = (*match_hex).to_U16.shift_left(4_U16);
@@ -273,7 +273,7 @@ _match_quoted_char_u16 = (
     };
 
     do {
-        let _ = *(match_char('\\'));
+        match_char('\\');;
         let u16 = *(match_escaped.or_else(match_u_hex4));
         pure $ u16
     }
@@ -301,12 +301,11 @@ _match_str_inner = do {
 
 _parse_string: Parser String;
 _parse_string = do {
-    let _ = *(match_char(_DOUBLEQUOTE));
+    match_char(_DOUBLEQUOTE);;
     let str = *_match_str_inner;
-    let _ = *(
-        match_char(_DOUBLEQUOTE)
-        .or_error("The double quote at the end of the string is missing.")
-    );
+    match_char(_DOUBLEQUOTE).or_error(
+        "The double quote at the end of the string is missing."
+    );;
     pure $ str
 };
 
