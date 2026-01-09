@@ -1,6 +1,6 @@
 # Minilib.Encoding.Json
 
-Defined in minilib-json@0.5.5
+Defined in minilib-json@0.5.6
 
 Definition of the structure of a JSON value.
 
