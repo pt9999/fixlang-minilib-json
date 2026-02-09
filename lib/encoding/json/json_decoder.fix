@@ -7,7 +7,6 @@ import Minilib.Collection.OrderedMap;
 import Minilib.Encoding.Json;
 import Minilib.Text.SimpleParser;
 import Minilib.Text.StringEx;
-import Minilib.Text.Hex;
 import Minilib.Text.Unicode;
 
 // Parses JSON text and returns a JSON value.
@@ -255,6 +254,12 @@ _unescape_table = (
 // to UTF32 and join the surrogate pair, then convert it to UTF8.
 _match_quoted_char_u16: Parser U16;
 _match_quoted_char_u16 = (
+    let decode_hex_char = |c| (
+        if '0' <= c && c <= '9' { ok $ c - '0' };
+        if 'A' <= c && c <= 'F' { ok $ c - 'A' + 10_U8 };
+        if 'a' <= c && c <= 'f' { ok $ c - 'a' + 10_U8 };
+        err $ "Not a hexadecimal character: '" + String::from_U8(c) + "'"
+    );
     let match_escaped: Parser U16 = (
         match_any_char
         .map(|c| _unescape_table.@(c.to_I64))
