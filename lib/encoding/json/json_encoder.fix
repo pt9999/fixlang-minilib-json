@@ -1,10 +1,8 @@
 // Encodes a JSON value to a string.
 module Minilib.Encoding.Json.JsonEncoder;
 
-
 import Minilib.Collection.OrderedMap;
 import Minilib.Encoding.Json;
-import Minilib.Text.StringEx;
 
 // Encodes JSON and converts it to a string.
 encode: Json -> String;
