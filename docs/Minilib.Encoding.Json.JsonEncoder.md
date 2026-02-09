@@ -1,6 +1,6 @@
 # Minilib.Encoding.Json.JsonEncoder
 
-Defined in minilib-json@0.5.6
+Defined in minilib-json@0.5.7
 
 Encodes a JSON value to a string.
 
