@@ -229,7 +229,7 @@ _match_unquoted_char = match_any_char.filter(|c| c != _DOUBLEQUOTE && c != '\\')
 
 _match_unquoted_str: Parser String;
 _match_unquoted_str = (
-    one_or_more(_match_unquoted_char).map(|array| array._unsafe_to_string)
+    one_or_more(_match_unquoted_char).map(StringEx::from_array)
 );
 
 _unescape_table: Array U8;
@@ -290,7 +290,7 @@ _match_quoted_str = do {
     // compose surrogate pairs
     let a32: Array U32 = utf16_to_utf32(a16, Array::empty(a16.get_size));
     let a8: Array U8 = utf32_to_utf8(a32, Array::empty(a32.get_size * 4));
-    pure $ a8._unsafe_to_string
+    pure $ a8.StringEx::from_array
 };
 
 _match_str_inner: Parser String;
