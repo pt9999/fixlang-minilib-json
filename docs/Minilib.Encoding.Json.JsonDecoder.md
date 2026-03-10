@@ -1,6 +1,6 @@
 # Minilib.Encoding.Json.JsonDecoder
 
-Defined in minilib-json@0.6.1
+Defined in minilib-json@0.6.2
 
 Decodes a JSON value from a string.
 
