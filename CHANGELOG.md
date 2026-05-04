@@ -1,6 +1,7 @@
 ## 0.6.5
 - Upgraded to minilib-text@0.9.4, minilib-collection@0.8.2.
 - Removed indirect dependencies.
+- Modified some code to remove the deprecation warnings.
 
 ## 0.6.2
 - Utilized minilib-common@0.13.0, minilib-collection@0.8.0.

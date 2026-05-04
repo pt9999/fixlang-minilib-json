@@ -238,7 +238,7 @@ _unescape_table = (
     let unescape_to = "\"\\/\u0008\u000c\n\r\t".get_bytes.pop_back;
     Iterator::count_up(0).take(256)
     .map(|i|
-        unescape_from.find_by(|x| x == i.to_U8)
+        unescape_from.find_by(|x| x == i.u8)
         .map_or(0_U8,
             |pos| unescape_to.@(pos)
         )
@@ -262,25 +262,25 @@ _match_quoted_char_u16 = (
     );
     let match_escaped: Parser U16 = (
         match_any_char
-        .map(|c| _unescape_table.@(c.to_I64))
+        .map(|c| _unescape_table.@(c.i64))
         .filter(|c| c != 0_U8)
-        .map(|c| c.to_U16)
+        .map(|c| c.u16)
     );
     let match_hex: Parser U8 = match_any_char.filter(is_xdigit).map_result(decode_hex_char);
     let match_u_hex4: Parser U16 = do {
         match_char('u');;
-        let a = (*match_hex).to_U16.shift_left(12_U16);
-        let b = (*match_hex).to_U16.shift_left(8_U16);
-        let c = (*match_hex).to_U16.shift_left(4_U16);
-        let d = (*match_hex).to_U16.shift_left(0_U16);
-        let u16 : U16 = a.bit_or(b).bit_or(c).bit_or(d);
-        pure $ u16
+        let a = (*match_hex).u16.shift_left(12_U16);
+        let b = (*match_hex).u16.shift_left(8_U16);
+        let c = (*match_hex).u16.shift_left(4_U16);
+        let d = (*match_hex).u16.shift_left(0_U16);
+        let u16val : U16 = a.bit_or(b).bit_or(c).bit_or(d);
+        pure $ u16val
     };
 
     do {
         match_char('\\');;
-        let u16 = *(match_escaped.or_else(match_u_hex4));
-        pure $ u16
+        let u16val = *(match_escaped.or_else(match_u_hex4));
+        pure $ u16val
     }
 );
 
@@ -288,8 +288,8 @@ _match_quoted_str: Parser String;
 _match_quoted_str = do {
     let a16: Array U16 = *(one_or_more(_match_quoted_char_u16));
     // compose surrogate pairs
-    let a32: Array U32 = utf16_to_utf32(a16, Array::empty(a16.get_size));
-    let a8: Array U8 = utf32_to_utf8(a32, Array::empty(a32.get_size * 4));
+    let a32: Array U32 = utf16_to_utf32(a16, Array::empty(a16.@size));
+    let a8: Array U8 = utf32_to_utf8(a32, Array::empty(a32.@size * 4));
     pure $ a8.StringEx::from_array
 };
 

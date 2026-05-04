@@ -22,7 +22,7 @@ impl Json: ToString {
 to_object: Array (String, Json) -> Json;
 to_object = |arr| (
     let map = arr.to_iter.fold(
-        OrderedMap::empty(arr.get_size),
+        OrderedMap::empty(arr.@size),
         |(k, v), h| h.insert(k, v)
     );
     object $ map

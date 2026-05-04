@@ -73,7 +73,7 @@ _encode_number = |param, num| (
     // Trim trailing zeros of fractional number.
     let a = s.get_bytes;
     loop(
-        s.get_size - 1, |i|
+        s.@size - 1, |i|
         if i < 1 {
             break $ s.get_sub(0, i + 1)
         };
@@ -93,7 +93,7 @@ _encode_string: String -> String;
 _encode_string = |str| (
     let _DOUBLEQUOTE = 34_U8; // '\"'
     let input: Array U8 = str.get_bytes.pop_back;
-    let input_size = input.get_size;
+    let input_size = input.@size;
     let output: Array U8 = Array::empty(input_size * 2);
     let output = output.push_back(_DOUBLEQUOTE);
     let output = loop (
@@ -103,7 +103,7 @@ _encode_string = |str| (
         };
         let c = input.@(i);
         let output = do {
-            let escape_char = _escape_table.@(c.to_I64);
+            let escape_char = _escape_table.@(c.i64);
             if escape_char != 0_U8 {
                 output.push_back('\\').push_back(escape_char)
             };
@@ -111,8 +111,8 @@ _encode_string = |str| (
                 output.push_back('\\').push_back('u')
                 .push_back(_hex_table.@(0))
                 .push_back(_hex_table.@(0))
-                .push_back(_hex_table.@(c.to_I64.shift_right(4)))
-                .push_back(_hex_table.@(c.to_I64.bit_and(15)))
+                .push_back(_hex_table.@(c.i64.shift_right(4)))
+                .push_back(_hex_table.@(c.i64.bit_and(15)))
             };
             output.push_back(c)
         };
@@ -128,7 +128,7 @@ _escape_table = (
     let escape_to = "\"\\nrt".get_bytes.pop_back;
     Iterator::count_up(0).take(256)
     .map(|i|
-        escape_from.find_by(|x| x == i.to_U8)
+        escape_from.find_by(|x| x == i.u8)
         .map_or(0_U8,
             |pos| escape_to.@(pos)
         )
@@ -140,8 +140,8 @@ _hex_table: Array U8;
 _hex_table = (
     Iterator::count_up(0).take(16)
     .map(|i|
-        if i < 10 { '0' + i.to_U8 }
-        else { 'a' + (i - 10).to_U8 }
+        if i < 10 { '0' + i.u8 }
+        else { 'a' + (i - 10).u8 }
     )
     .to_array
 );
@@ -150,7 +150,7 @@ _hex_table = (
 _encode_object: EncodeParam -> Array String -> OrderedMap String Json -> Array String;
 _encode_object = |param, output, ordered_map| (
     let array = ordered_map.to_iter.to_array;
-    let array_size = array.get_size;
+    let array_size = array.@size;
     if array_size == 0 {
         output.push_back ("{}")
     };
@@ -182,7 +182,7 @@ _encode_object = |param, output, ordered_map| (
 
 _encode_array: EncodeParam -> Array String -> Array Json -> Array String;
 _encode_array = |param, output, array| (
-    let array_size = array.get_size;
+    let array_size = array.@size;
     if array_size == 0 {
         output.push_back("[]")
     };
