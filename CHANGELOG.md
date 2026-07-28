@@ -1,3 +1,10 @@
+## 0.7.0
+### Changed
+- Merged PR#2 (thanks to tttmmmyyyy san).
+  - Migrate to the unboxed-Array standard library.
+  - fixproj.toml: Bumped `fix_version` to 1.5.0.
+- Upgraded to minilib-text@0.10.0, minilib-collection@0.9.0.
+
 ## 0.6.5
 - Upgraded to minilib-text@0.9.4, minilib-collection@0.8.2.
 - Removed indirect dependencies.
