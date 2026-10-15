@@ -1,8 +1,9 @@
 // Definition of the structure of a JSON value.
 module Minilib.Encoding.Json;
 
-import Minilib.Encoding.Json.JsonEncoder;
-import Minilib.Collection.OrderedMap;
+import Minilib.Collection.OrderedMap::{OrderedMap, OrderedMap::{empty, insert}};
+import Minilib.Encoding.Json.JsonEncoder::encode;
+import Std::{Array, Bool, Eq, F64, String, ToString, Array::{@size, to_iter}, Iterator::fold};
 
 // A structure representing a JSON value.
 type Json = box union {

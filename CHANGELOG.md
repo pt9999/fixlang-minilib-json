@@ -3,6 +3,7 @@
 - fixproj.toml: Bumped `fix_version` to 1.6.0. Depends on minilib-common@0.15.0,
   minilib-text@0.11.0, minilib-collection@0.10.0.
 - Minilib.Encoding.Json.JsonDecoder, Minilib.Encoding.Json.JsonEncoder: Changed `_DOUBLEQUOTE` to `__DOUBLEQUOTE` etc.
+- Reorganized imports using `fix edit explicit-import`.
 
 ## 0.7.1
 ### Changed

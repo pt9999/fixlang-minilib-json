@@ -1,8 +1,8 @@
 module Test;
 
-import Minilib.Testing.UnitTest;
-
-import JsonTest;
+import JsonTest::main;
+import Minilib.Testing.UnitTest::{TestSuite, TestSuite::run};
+import Std::IO;
 
 testsuite: TestSuite;
 testsuite = [

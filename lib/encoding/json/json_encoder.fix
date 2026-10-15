@@ -1,8 +1,20 @@
 // Encodes a JSON value to a string.
 module Minilib.Encoding.Json.JsonEncoder;
 
-import Minilib.Collection.OrderedMap;
-import Minilib.Encoding.Json;
+import Minilib.Collection.OrderedMap::{OrderedMap, OrderedMap::to_iter};
+import Minilib.Encoding.Json::{
+    Json, 
+    Json::{
+        as_array, as_bool, as_number, as_object, as_string, is_array, is_bool, is_null, is_number, is_object, 
+        is_string
+    }
+};
+import Std::{
+    loop, Array, F64, String, U8, Array::{@, @size, empty, find_by, pop_back, push_back, to_iter}, 
+    F64::to_string_precision, I64::{bit_and, shift_right}, Iterator::{count_up, map, take, to_array}, 
+    LoopState::{break, continue}, Option::{is_none, map_or}, 
+    String::{@size, _unsafe_from_c_str, concat_iter, find, get_bytes, get_sub}, ToI64::i64, ToU8::u8
+};
 
 // Encodes JSON and converts it to a string.
 encode: Json -> String;

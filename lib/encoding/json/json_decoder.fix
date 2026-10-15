@@ -1,13 +1,27 @@
 // Decodes a JSON value from a string.
 module Minilib.Encoding.Json.JsonDecoder;
 
-import Character;
-
-import Minilib.Collection.OrderedMap;
-import Minilib.Encoding.Json;
-import Minilib.Text.SimpleParser;
-import Minilib.Text.StringEx;
-import Minilib.Text.Unicode;
+import Character::is_xdigit;
+import Minilib.Collection.OrderedMap::{OrderedMap, OrderedMap::{empty, insert}};
+import Minilib.Encoding.Json::{Json, Json::{array, bool, null, number, object, string}};
+import Minilib.Text.SimpleParser::{
+    parser, Parser, 
+    Parser::{
+        error_parser, filter, get_stream, map_result, match_any_char, match_char, match_end_of_stream, 
+        match_str, match_str_class_whitespace, one_or_more, or_else, or_error, repeat, run_parser, 
+        run_parser_str, unit
+    }, 
+    Stream::{read_string, Stream::@position}
+};
+import Minilib.Text.StringEx::from_array;
+import Minilib.Text.Unicode::{utf16_to_utf32, utf32_to_utf8};
+import Std::{
+    undefined, Array, Bool, ErrMsg, F64, Result, String, U16, U32, U8, 
+    Array::{@, @size, append, empty, find_by, pop_back, to_iter}, FromString::from_string, Functor::map, 
+    Iterator::{count_up, fold, map, take, to_array}, Monad::pure, Option::map_or, 
+    Result::{as_err, as_ok, err, is_err, ok}, String::{concat_iter, from_U8, get_bytes}, ToI64::i64, 
+    ToU16::u16, ToU8::u8, U16::{bit_or, shift_left}
+};
 
 // Parses JSON text and returns a JSON value.
 decode: String -> Result ErrMsg Json;
