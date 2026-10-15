@@ -91,11 +91,11 @@ _encode_number = |param, num| (
 
 _encode_string: String -> String;
 _encode_string = |str| (
-    let _DOUBLEQUOTE = 34_U8; // '\"'
+    let __DOUBLEQUOTE = 34_U8; // '\"'
     let input: Array U8 = str.get_bytes.pop_back;
     let input_size = input.@size;
     let output: Array U8 = Array::empty(input_size * 2);
-    let output = output.push_back(_DOUBLEQUOTE);
+    let output = output.push_back(__DOUBLEQUOTE);
     let output = loop (
         (0, output), |(i, output)|
         if i >= input_size {
@@ -118,7 +118,7 @@ _encode_string = |str| (
         };
         continue $ (i + 1, output)
     );
-    let output = output.push_back(_DOUBLEQUOTE);
+    let output = output.push_back(__DOUBLEQUOTE);
     _unsafe_from_c_str(output.push_back(0_U8))
 );
 
@@ -145,7 +145,6 @@ _hex_table = (
     )
     .to_array
 );
-
 
 _encode_object: EncodeParam -> Array String -> OrderedMap String Json -> Array String;
 _encode_object = |param, output, ordered_map| (

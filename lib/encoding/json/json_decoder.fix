@@ -221,11 +221,11 @@ _parse_number = (
 // 7. Strings
 //=============================================================
 
-_DOUBLEQUOTE: U8;
-_DOUBLEQUOTE = 34_U8; // '\"'
+__DOUBLEQUOTE: U8;
+__DOUBLEQUOTE = 34_U8; // '\"'
 
 _match_unquoted_char: Parser U8;
-_match_unquoted_char = match_any_char.filter(|c| c != _DOUBLEQUOTE && c != '\\');
+_match_unquoted_char = match_any_char.filter(|c| c != __DOUBLEQUOTE && c != '\\');
 
 _match_unquoted_str: Parser String;
 _match_unquoted_str = (
@@ -247,10 +247,10 @@ _unescape_table = (
 );
 
 // Parse a quoted character. ("\n", "\uD83D" etc.)
-// NOTE: Escape sequences of the form "\uXXXX" can only represent 
+// NOTE: Escape sequences of the form "\uXXXX" can only represent
 // the range U+0000 to U+FFFF. Characters in the range U+10000 to U+10FFFF
 // become surrogate pairs and are split like "\uD83D\uDE38".
-// Therefore, we first interpret these strings as UTF16. Later convert it 
+// Therefore, we first interpret these strings as UTF16. Later convert it
 // to UTF32 and join the surrogate pair, then convert it to UTF8.
 _match_quoted_char_u16: Parser U16;
 _match_quoted_char_u16 = (
@@ -306,9 +306,9 @@ _match_str_inner = do {
 
 _parse_string: Parser String;
 _parse_string = do {
-    match_char(_DOUBLEQUOTE);;
+    match_char(__DOUBLEQUOTE);;
     let str = *_match_str_inner;
-    match_char(_DOUBLEQUOTE).or_error(
+    match_char(__DOUBLEQUOTE).or_error(
         "The double quote at the end of the string is missing."
     );;
     pure $ str
